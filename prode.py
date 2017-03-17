@@ -10,12 +10,12 @@ rotate_amounts = [7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
  
 constants = [int(abs(math.sin(i+1)) * 2**32) & 0xFFFFFFFF for i in range(64)]
  
-init_values = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476]
+init_values = [0x21F09A81, 0x1015AE5A, 0x132A1A45, 0x3906B6C8]
  
-functions = 16*[lambda b, c, d: (b & c) | (~b & d)] + \
-            16*[lambda b, c, d: (d & b) | (~d & c)] + \
-            16*[lambda b, c, d: b ^ c ^ d] + \
-            16*[lambda b, c, d: c ^ (b | ~d)]
+functions = 16*[lambda b, c, d: (b & ~d) | (~b & c)] + \
+            16*[lambda b, c, d: (c ^ b) | (~d & c)] + \
+            16*[lambda b, c, d: (b & c) | (d ^ d)] + \
+            16*[lambda b, c, d: ~d & (b | ~c)]
  
 index_functions = 16*[lambda i: i] + \
                   16*[lambda i: (5*i + 1)%16] + \
